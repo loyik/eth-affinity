@@ -7,6 +7,8 @@
  *
  */
 
+#include <stdint.h>
+#include <inttypes.h>
 #include <sys/types.h>
 #include <dirent.h>
 #include <sys/stat.h>
@@ -508,7 +510,7 @@ static int aff_multiq(const struct dev *dev)
 		q->assigned_cpu = cpu;
 		rps_cpu = cpu;
 		
-		snprintf(buf, sizeof(buf), "%llx", (uint64_t) 1 << cpu);
+		snprintf(buf, sizeof(buf), "%"PRIx64, (uint64_t) 1 << cpu);
 		
 		if(!conf.quiet) {
 			if(conf.verbose)
@@ -546,7 +548,7 @@ static int aff_multiq(const struct dev *dev)
 		if( (dev->tx == 1) && (dev->rx == 1) )
 			cpu = rps_cpu;
 		
-		snprintf(buf, sizeof(buf), "%llx", (uint64_t) 1 << cpu);
+		snprintf(buf, sizeof(buf), "%"PRIx64, (uint64_t) 1 << cpu);
 
 		if(dev->xps) {
 			/* assign the same cpu to the xps queue */
@@ -592,7 +594,7 @@ static int aff_multiq(const struct dev *dev)
 				cpu = 0;
 		} else
 			cpu = (i % nr_use_cpu) + cpu_offset;
-		snprintf(buf, sizeof(buf), "%llx", (uint64_t) 1 << cpu);
+		snprintf(buf, sizeof(buf), "%"PRIx64, (uint64_t) 1 << cpu);
 
 		q->assigned_cpu = cpu;
 		rps_cpu = cpu;
